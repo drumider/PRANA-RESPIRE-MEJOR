@@ -1,0 +1,6 @@
+{
+  "name": "Prana - Clínica Neumológica",
+  "description": "Clínica respiratoria y neumología profesional en Costa Rica. Prana es respirar mejor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
