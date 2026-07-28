@@ -31,10 +31,10 @@ async function startServer() {
       console.log(`Notas: ${notes}`);
       console.log('-------------------------------');
 
-      const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER || 'doctorguadamuz@gmail.com';
-      const smtpPass = process.env.SMTP_PASS || process.env.EMAIL_PASS || 'xqzd klpu pvvm jgar';
-      const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-      const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
+      const rawUser = process.env.SMTP_USER || process.env.EMAIL_USER || 'doctorguadamuz@gmail.com';
+      const rawPass = process.env.SMTP_PASS || process.env.EMAIL_PASS || 'xqzd klpu pvvm jgar';
+      const smtpUser = rawUser.trim();
+      const smtpPass = rawPass.replace(/\s+/g, '');
 
       let emailSent = false;
       let emailError = null;
@@ -42,9 +42,7 @@ async function startServer() {
       if (smtpUser && smtpPass) {
         try {
           const transporter = nodemailer.createTransport({
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpPort === 465,
+            service: 'gmail',
             auth: {
               user: smtpUser,
               pass: smtpPass,
@@ -96,9 +94,9 @@ Enviado desde el sistema web de Prana Neumología
             `,
           };
 
-          await transporter.sendMail(mailOptions);
+          const info = await transporter.sendMail(mailOptions);
           emailSent = true;
-          console.log(`Email enviado con éxito a ${recipientEmail}`);
+          console.log(`Email enviado con éxito a ${recipientEmail}:`, info.response);
         } catch (err: any) {
           console.error('Error al enviar email por SMTP:', err);
           emailError = err.message || 'Error en servidor SMTP';
