@@ -125,7 +125,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                     className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-300 hover:text-cyan-200 transition-colors"
                   >
                     <Phone className="w-3 h-3" />
-                    <span>Tel: (506) 2246-3010</span>
+                    <span>{LOCATIONS.catolica.phone}</span>
                   </a>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                     className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-300 hover:text-cyan-200 transition-colors"
                   >
                     <Phone className="w-3 h-3" />
-                    <span>Tel: (506) 2521-9640</span>
+                    <span>{LOCATIONS.metropolitano.phone}</span>
                   </a>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           {/* Column 4: Hours & Direct Contact (lg:col-span-3) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-white text-base font-bold tracking-tight uppercase border-b border-cyan-900/60 pb-2">
-              {lang === 'es' ? 'Horarios & Atencion' : 'Hours & Support'}
+              {lang === 'es' ? 'Horarios & Atención' : 'Hours & Support'}
             </h4>
 
             <div className="space-y-3">
@@ -172,22 +172,40 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                 </p>
               </div>
 
-              {/* Direct WhatsApp Contact Button */}
-              <a
-                href={LOCATIONS.whatsapp.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 bg-emerald-950/60 hover:bg-emerald-900/80 p-3 rounded-xl border border-emerald-800/60 transition-colors group"
-              >
-                <div className="flex items-center gap-2.5">
-                  <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <div className="text-xs">
-                    <span className="block text-emerald-200 font-bold">{t.whatsappText}</span>
-                    <span className="text-[11px] text-emerald-300">(506) 8828-2904</span>
+              {/* Direct Contact Buttons */}
+              <div className="space-y-2">
+                <a
+                  href={lang === 'es' ? LOCATIONS.catolica.whatsappLink : LOCATIONS.catolica.whatsappLinkEn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-3 bg-emerald-950/60 hover:bg-emerald-900/80 p-2.5 rounded-xl border border-emerald-800/60 transition-colors group"
+                >
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <div className="text-xs">
+                      <span className="block text-emerald-200 font-bold text-[11px]">Sede La Católica</span>
+                      <span className="text-[11px] text-emerald-300 font-mono">(506) 8946-8277</span>
+                    </div>
                   </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
-              </a>
+                  <ChevronRight className="w-3.5 h-3.5 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+                </a>
+
+                <a
+                  href={lang === 'es' ? LOCATIONS.metropolitano.whatsappLink : LOCATIONS.metropolitano.whatsappLinkEn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-3 bg-emerald-950/60 hover:bg-emerald-900/80 p-2.5 rounded-xl border border-emerald-800/60 transition-colors group"
+                >
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <div className="text-xs">
+                      <span className="block text-emerald-200 font-bold text-[11px]">Sede Metropolitano</span>
+                      <span className="text-[11px] text-emerald-300 font-mono">(506) 6448-8664</span>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
             </div>
           </div>
 

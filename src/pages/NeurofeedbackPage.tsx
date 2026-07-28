@@ -289,6 +289,81 @@ export const NeurofeedbackPage: React.FC<NeurofeedbackPageProps> = ({ lang, onOp
             </div>
           </section>
 
+          {/* Sección Especialista en Psicología y Neurofeedback */}
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Photo of Psychologist */}
+              <div className="lg:col-span-4 flex justify-center">
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden border-2 border-cyan-100 shadow-md group bg-slate-100">
+                  <img
+                    src="/psicologia/psicologa.jpeg"
+                    alt={isEs ? "Psicóloga Especialista en Neurofeedback" : "Psychologist Neurofeedback Specialist"}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.endsWith('.jpeg')) {
+                        target.src = '/psicologia/psicologa.jpg';
+                      } else if (target.src.endsWith('.jpg')) {
+                        target.src = '/psicologia/psicologa.png';
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60" />
+                  <div className="absolute bottom-3 left-3 right-3 text-center">
+                    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 text-slate-800 shadow-sm backdrop-blur-sm">
+                      {isEs ? 'Especialista en Psicología' : 'Psychology Specialist'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Information */}
+              <div className="lg:col-span-8 space-y-4">
+                <div className="space-y-1">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-cyan-100 text-cyan-800">
+                    {isEs ? 'Atención Especializada' : 'Specialized Care'}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-light text-slate-900 tracking-tight">
+                    {isEs ? 'Psicología Clínica & Neurofeedback' : 'Clinical Psychology & Neurofeedback'}
+                  </h3>
+                  <p className="text-sm font-medium text-cyan-700">
+                    {isEs
+                      ? 'Evaluación neuropsicológica, mapeo qEEG y protocolos de autorregulación'
+                      : 'Neuropsychological evaluation, qEEG mapping & self-regulation protocols'}
+                  </p>
+                </div>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {isEs
+                    ? 'Nuestra especialista en psicología brinda atención personalizada integrada con tecnología de Neurofeedback Z-Score. Mediante la evaluación neuropsicológica y el análisis de ondas cerebrales, se diseñan planes de tratamiento enfocados en optimizar la atención, regular las emociones y potenciar el rendimiento cognitivo tanto en niños como en adultos.'
+                    : 'Our psychology specialist provides personalized care integrated with Z-Score Neurofeedback technology. Through neuropsychological assessment and brainwave analysis, tailored treatment plans are designed to optimize attention, regulate emotions, and enhance cognitive performance in both children and adults.'}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>{isEs ? 'Evaluación y Mapeo Cerebral qEEG' : 'qEEG Assessment & Mapping'}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>{isEs ? 'Atención en TDAH y Aprendizaje' : 'ADHD & Learning Support'}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>{isEs ? 'Manejo de Ansiedad y Estrés' : 'Anxiety & Stress Management'}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>{isEs ? 'Seguimiento Clínico Continuo' : 'Continuous Clinical Follow-up'}</span>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </section>
+
           {/* 3. ¿Qué analiza un qEEG? */}
           <section className="space-y-6">
             <div className="border-b border-slate-200 pb-4">

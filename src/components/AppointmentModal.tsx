@@ -98,7 +98,8 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
       `- Aseguradora: ${formData.insurance}\n` +
       `- Teléfono: ${formData.phone}`
     );
-    window.open(`https://wa.me/50688282904?text=${text}`, '_blank');
+    const waNumber = formData.hospital === 'Hospital Metropolitano' ? '50664488664' : '50689468277';
+    window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
   };
 
   return (
@@ -228,7 +229,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="Ej. 8828-2904"
+                      placeholder="Ej. 8946-8277"
                       className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                     />
                   </div>
@@ -272,7 +273,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
                     />
                     <div className="text-xs">
                       <p className="font-bold">Hospital La Católica</p>
-                      <p className="text-[10px] text-slate-500">Sector 4, Piso 2, Consultorio 2</p>
+                      <p className="text-[10px] text-slate-500">Torre Médica Nueva, Piso 3, Consultorio 310</p>
                     </div>
                   </label>
 
@@ -291,7 +292,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
                     />
                     <div className="text-xs">
                       <p className="font-bold">Hospital Metropolitano</p>
-                      <p className="text-[10px] text-slate-500">San José Centro, Piso 4, Consultorio 2</p>
+                      <p className="text-[10px] text-slate-500">Torre B, Piso 2, San José</p>
                     </div>
                   </label>
                 </div>
