@@ -21,7 +21,6 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
     { path: '/', label: navT.home },
     { path: '/sobre-nosotros', label: navT.about },
     { path: '/servicios', label: navT.services },
-    { path: '/deportistas', label: navT.sports },
     { path: '/videos-educativos', label: navT.videos },
     { path: '/aseguradoras', label: navT.insurances },
     { path: '/contacto', label: navT.contact },
@@ -164,7 +163,9 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                   <Clock className="w-4 h-4 shrink-0" />
                   <span>{lang === 'es' ? 'Horario de Atención:' : 'Office Hours:'}</span>
                 </div>
-                <p className="pl-5 font-semibold text-white">Lunes a Viernes: 8:00 AM - 5:00 PM</p>
+                <p className="pl-5 font-semibold text-white">
+                  {lang === 'es' ? 'Lunes a Viernes: 8:00 AM - 5:00 PM' : 'Monday to Friday: 8:00 AM - 5:00 PM'}
+                </p>
                 <p className="pl-5 text-[11px] text-slate-400">
                   {lang === 'es' ? 'Citas previas en ambas sedes.' : 'By appointment at both locations.'}
                 </p>

@@ -10,13 +10,25 @@ import { AppointmentModal } from './components/AppointmentModal';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ServicesPage } from './pages/ServicesPage';
-import { SportsPage } from './pages/SportsPage';
 import { VideosPage } from './pages/VideosPage';
 import { InsurancesPage } from './pages/InsurancesPage';
 import { ContactPage } from './pages/ContactPage';
 
 export default function App() {
-  const [lang, setLang] = useState<Language>('es');
+  const [lang, setLangState] = useState<Language>(() => {
+    const saved = localStorage.getItem('prana_lang');
+    return (saved === 'en' || saved === 'es') ? saved : 'es';
+  });
+
+  const setLang = (newLang: Language) => {
+    setLangState(newLang);
+    try {
+      localStorage.setItem('prana_lang', newLang);
+    } catch (e) {
+      // Ignore storage errors
+    }
+  };
+
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const handleOpenBooking = () => {
@@ -44,7 +56,6 @@ export default function App() {
             <Route path="/" element={<HomePage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/sobre-nosotros" element={<AboutPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/servicios" element={<ServicesPage lang={lang} onOpenBooking={handleOpenBooking} />} />
-            <Route path="/deportistas" element={<SportsPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/videos-educativos" element={<VideosPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/aseguradoras" element={<InsurancesPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/contacto" element={<ContactPage lang={lang} onOpenBooking={handleOpenBooking} />} />

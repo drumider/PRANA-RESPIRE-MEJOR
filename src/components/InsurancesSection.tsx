@@ -8,14 +8,16 @@ interface InsurancesSectionProps {
   onOpenBooking?: () => void;
 }
 
-export const InsurancesSection: React.FC<InsurancesSectionProps> = () => {
+export const InsurancesSection: React.FC<InsurancesSectionProps> = ({ lang }) => {
+  const isEs = lang === 'es';
+
   return (
     <section id="aseguradoras" className="bg-white pb-16">
       {/* Green Header Banner */}
       <div className="bg-[#66D4A6] text-white py-6 sm:py-8 px-4 sm:px-6 shadow-sm mb-12">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
-            Aseguradoras / Insurances
+            {isEs ? 'Aseguradoras' : 'Insurances'}
           </h1>
         </div>
       </div>
@@ -49,7 +51,7 @@ export const InsurancesSection: React.FC<InsurancesSectionProps> = () => {
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#195638] hover:bg-[#13442c] text-white px-5 py-3 rounded-xl text-xs font-semibold tracking-wide transition-colors shadow-sm"
                 >
-                  <span>Visitar sitio oficial</span>
+                  <span>{isEs ? 'Visitar sitio oficial' : 'Visit official website'}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>

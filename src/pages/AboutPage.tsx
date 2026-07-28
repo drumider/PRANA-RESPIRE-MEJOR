@@ -8,13 +8,15 @@ interface AboutPageProps {
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ lang, onOpenBooking }) => {
+  const isEs = lang === 'es';
+
   return (
     <div className="bg-white min-h-screen">
-      {/* Top Banner Header as shown in screenshot */}
+      {/* Top Banner Header */}
       <div className="bg-[#66D4A6] text-white py-6 sm:py-8 px-4 sm:px-6 shadow-sm">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl sm:text-3xl font-medium tracking-tight">
-            Acerca de nosotros / About Us
+            {isEs ? 'Acerca de nosotros' : 'About Us'}
           </h1>
         </div>
       </div>
