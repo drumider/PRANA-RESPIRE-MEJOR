@@ -13,11 +13,6 @@ export const PranaLogo: React.FC<PranaLogoProps> = ({
   const [logoError, setLogoError] = useState(false);
   const [logoSrcIndex, setLogoSrcIndex] = useState(0);
   const logoSources = [
-    '/logo/logo.png',
-    '/logo/logo.svg',
-    '/logo/logo.jpg',
-    '/logo/logo.PNG',
-    '/logo/prana-logo.png',
     '/LOGO/logo.png',
     '/LOGO/logo.PNG',
     '/LOGO/logo.jpg',
@@ -41,9 +36,9 @@ export const PranaLogo: React.FC<PranaLogoProps> = ({
   };
 
   const logoImageSizes = {
-    sm: 'h-8 md:h-10 max-w-[160px]',
-    md: 'h-10 md:h-12 max-w-[200px]',
-    lg: 'h-14 md:h-16 max-w-[260px]',
+    sm: 'h-14 md:h-16',
+    md: 'h-20 md:h-24',
+    lg: 'h-28 md:h-32',
   };
 
   const textSizes = {
