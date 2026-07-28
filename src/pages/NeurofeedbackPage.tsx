@@ -17,7 +17,8 @@ import {
   Trophy,
   Calendar,
   ShieldCheck,
-  Check
+  Check,
+  Image as ImageIcon
 } from 'lucide-react';
 
 interface NeurofeedbackPageProps {
@@ -27,6 +28,7 @@ interface NeurofeedbackPageProps {
 
 export const NeurofeedbackPage: React.FC<NeurofeedbackPageProps> = ({ lang, onOpenBooking }) => {
   const isEs = lang === 'es';
+  const photoUrl = '/neurofeedback/c42d9277-ef99-4f51-b2d7-d7935bdb48cb.png';
 
   // qEEG Analysis items
   const qeegItems = isEs
@@ -240,26 +242,50 @@ export const NeurofeedbackPage: React.FC<NeurofeedbackPageProps> = ({ lang, onOp
           <section className="bg-gradient-to-br from-slate-50 via-cyan-50/20 to-white p-6 sm:p-10 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden">
             <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-cyan-100/40 rounded-full blur-3xl pointer-events-none" />
             
-            <div className="relative z-10 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-[#21B5EB] text-white flex items-center justify-center shadow-md shrink-0">
-                  <Brain className="w-6 h-6" />
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-[#21B5EB] text-white flex items-center justify-center shadow-md shrink-0">
+                    <Brain className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl sm:text-3xl font-normal text-[#21B5EB] tracking-tight">
+                      {isEs ? '¿Qué es el Neurofeedback Z-Score?' : 'What is Z-Score Neurofeedback?'}
+                    </h2>
+                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+                      {isEs ? 'Entrenamiento cerebral autorregulado' : 'Self-regulated brain training'}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-normal text-[#21B5EB] tracking-tight">
-                    {isEs ? '¿Qué es el Neurofeedback Z-Score?' : 'What is Z-Score Neurofeedback?'}
-                  </h2>
-                  <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">
-                    {isEs ? 'Entrenamiento cerebral autorregulado' : 'Self-regulated brain training'}
-                  </p>
-                </div>
+
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                  {isEs
+                    ? 'El Neurofeedback Z-Score es una modalidad avanzada de entrenamiento cerebral que utiliza registros obtenidos mediante un electroencefalograma cuantitativo (qEEG) para comparar la actividad cerebral de una persona con bases de datos normativas según su edad. Durante cada sesión, el sistema BrainMaster analiza cientos de parámetros en tiempo real y proporciona retroalimentación visual y auditiva cuando la actividad cerebral se acerca a patrones más eficientes, favoreciendo la neuroplasticidad y el aprendizaje autorregulado del cerebro.'
+                    : 'Z-Score Neurofeedback is an advanced mode of brain training that utilizes quantitative electroencephalogram (qEEG) recordings to compare an individual\'s brain activity against age-matched normative databases. During each session, the BrainMaster system analyzes hundreds of parameters in real time, delivering visual and auditory feedback whenever brain activity moves closer to optimal patterns—promoting neuroplasticity and self-regulated brain learning.'}
+                </p>
               </div>
 
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-5xl">
-                {isEs
-                  ? 'El Neurofeedback Z-Score es una modalidad avanzada de entrenamiento cerebral que utiliza registros obtenidos mediante un electroencefalograma cuantitativo (qEEG) para comparar la actividad cerebral de una persona con bases de datos normativas según su edad. Durante cada sesión, el sistema BrainMaster analiza cientos de parámetros en tiempo real y proporciona retroalimentación visual y auditiva cuando la actividad cerebral se acerca a patrones más eficientes, favoreciendo la neuroplasticidad y el aprendizaje autorregulado del cerebro.'
-                  : 'Z-Score Neurofeedback is an advanced mode of brain training that utilizes quantitative electroencephalogram (qEEG) recordings to compare an individual\'s brain activity against age-matched normative databases. During each session, the BrainMaster system analyzes hundreds of parameters in real time, delivering visual and auditory feedback whenever brain activity moves closer to optimal patterns—promoting neuroplasticity and self-regulated brain learning.'}
-              </p>
+              {/* Photo Container */}
+              <div className="lg:col-span-5 flex flex-col items-center justify-center">
+                <div className="relative w-full max-w-[320px] sm:max-w-[360px] aspect-[9/16] max-h-[520px] rounded-2xl overflow-hidden border border-slate-200 shadow-lg group bg-slate-900 mx-auto">
+                  <img
+                    src={photoUrl}
+                    alt={isEs ? "Paciente en sesión de Neurofeedback Z-Score" : "Patient in Z-Score Neurofeedback session"}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                  
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs">
+                    <div className="flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10 shadow-sm">
+                      <ImageIcon className="w-4 h-4 text-cyan-400" />
+                      <span className="font-medium text-slate-200">
+                        {isEs ? 'Sesión de Neurofeedback Z-Score' : 'Z-Score Neurofeedback Session'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 

@@ -309,6 +309,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
                     className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white"
                   >
                     <option value="Consulta Neumología">Consulta Neumología General</option>
+                    <option value="Neurofeedback Z-Score">Neurofeedback Z-Score</option>
                     <option value="Espirometría / Examen">Espirometría / Examen Respiratorio</option>
                     <option value="Evaluación Deportiva">Neumología Deportiva</option>
                     <option value="Estudio de Sueño">Apnea del Sueño / Oximetría</option>
