@@ -26,21 +26,53 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [serverEmailSent, setServerEmailSent] = useState<boolean | null>(null);
+  const [serverEmailError, setServerEmailError] = useState<string | null>(null);
 
   if (!isOpen) return null;
+
+  const handleGmailWebCompose = () => {
+    const subject = `Solicitud de Cita - ${formData.fullName || 'Nuevo Paciente'} (${formData.hospital})`;
+    const body = 
+      `Hola Dr. Randall Guadamuz,\n\n` +
+      `Se ha generado una nueva solicitud de cita desde el sitio web de Prana Neumología:\n\n` +
+      `• Nombre del Paciente: ${formData.fullName || 'No especificado'}\n` +
+      `• Teléfono: ${formData.phone || 'No especificado'}\n` +
+      `• Correo electrónico: ${formData.email || 'No especificado'}\n` +
+      `• Sede / Hospital: ${formData.hospital}\n` +
+      `• Tipo de Servicio: ${formData.serviceType}\n` +
+      `• Fecha preferida: ${formData.preferredDate || 'Por coordinar'}\n` +
+      `• Horario preferido: ${formData.preferredTime}\n` +
+      `• Aseguradora: ${formData.insurance}\n` +
+      `• Observaciones: ${formData.notes || 'Ninguna'}\n\n` +
+      `Atentamente,\nPrana Neumología`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DOCTOR_EMAIL)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
+    setServerEmailSent(null);
+    setServerEmailError(null);
 
     try {
-      await fetch('/api/send-appointment', {
+      const response = await fetch('/api/send-appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-    } catch (err) {
+      const data = await response.json();
+      if (data.emailSent) {
+        setServerEmailSent(true);
+      } else {
+        setServerEmailSent(false);
+        setServerEmailError(data.emailError || null);
+      }
+    } catch (err: any) {
       console.error('Error enviando cita al servidor:', err);
+      setServerEmailSent(false);
+      setServerEmailError(err?.message || 'Error de red');
     } finally {
       setIsSending(false);
       setIsSubmitted(true);
@@ -74,26 +106,58 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
         </button>
 
         {isSubmitted ? (
-          <div className="text-center py-8 space-y-4">
+          <div className="text-center py-6 space-y-4">
             <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900">{t.successMsg}</h3>
             <p className="text-sm text-slate-600 max-w-md mx-auto">
               {lang === 'es'
-                ? `Hemos registrado su solicitud para ${formData.hospital} y enviado la información directamente al doctor. Nos pondremos en contacto al ${formData.phone} para confirmar su espacio.`
-                : `We registered your request for ${formData.hospital} and sent the details directly to the doctor. We will contact you at ${formData.phone} to confirm your appointment.`}
+                ? `Hemos registrado su solicitud para ${formData.hospital}. Nos pondremos en contacto al ${formData.phone} para confirmar su espacio.`
+                : `We registered your request for ${formData.hospital}. We will contact you at ${formData.phone} to confirm your appointment.`}
             </p>
             
-            <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl p-3 text-xs font-semibold max-w-md mx-auto flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Solicitud enviada a <strong>doctorguadamuz@gmail.com</strong></span>
-            </div>
+            {serverEmailSent ? (
+              <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl p-3.5 text-xs text-center max-w-md mx-auto space-y-1">
+                <div className="flex items-center justify-center gap-2 font-bold text-emerald-700">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Correo enviado exitosamente a doctorguadamuz@gmail.com</span>
+                </div>
+                <p className="text-[11px] text-emerald-600 font-normal">
+                  (Si no lo ves en tu bandeja de entrada, revisa la carpeta de <strong>Spam / Correo no deseado</strong> o <strong>Promociones</strong>).
+                </p>
+              </div>
+            ) : (
+              <div className="bg-amber-50 text-amber-900 border border-amber-200 rounded-xl p-3.5 text-xs text-left max-w-md mx-auto space-y-2">
+                <div className="flex items-start gap-2 font-bold text-amber-800">
+                  <Mail className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <span>El envío automático por servidor requirió confirmación manual.</span>
+                </div>
+                {serverEmailError && (
+                  <p className="text-[11px] text-amber-700 bg-amber-100/60 p-2 rounded-lg font-mono overflow-x-auto">
+                    Detalle: {serverEmailError}
+                  </p>
+                )}
+                <p className="text-[11px] text-amber-800 font-medium">
+                  Para asegurar que el doctor reciba tu solicitud de inmediato, haz clic en uno de los siguientes botones:
+                </p>
+              </div>
+            )}
 
-            <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="pt-2 flex flex-col sm:flex-row flex-wrap gap-2.5 justify-center">
+              {!serverEmailSent && (
+                <button
+                  onClick={handleGmailWebCompose}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-500 shadow-md transition-all cursor-pointer"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>{lang === 'es' ? 'Abrir en Gmail' : 'Open Gmail'}</span>
+                </button>
+              )}
+
               <button
                 onClick={handleWhatsAppBooking}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-500 shadow-md transition-all cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-500 shadow-md transition-all cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>{t.whatsappBtn}</span>
@@ -104,7 +168,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
                   setIsSubmitted(false);
                   onClose();
                 }}
-                className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
+                className="px-5 py-3 rounded-xl font-bold text-sm text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
               >
                 {t.closeBtn}
               </button>

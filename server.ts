@@ -31,27 +31,36 @@ async function startServer() {
       console.log(`Notas: ${notes}`);
       console.log('-------------------------------');
 
-      const rawUser = process.env.SMTP_USER || process.env.EMAIL_USER || 'doctorguadamuz@gmail.com';
       const rawPass = process.env.SMTP_PASS || process.env.EMAIL_PASS || 'xqzd klpu pvvm jgar';
-      const smtpUser = rawUser.trim();
       const smtpPass = rawPass.replace(/\s+/g, '');
 
-      let emailSent = false;
-      let emailError = null;
+      const possibleUsers = Array.from(new Set([
+        (process.env.SMTP_USER || '').trim(),
+        'doctorguadamuz@gmail.com',
+        'gabrielguadamuzriver@gmail.com'
+      ])).filter(Boolean);
 
-      if (smtpUser && smtpPass) {
+      const recipients = ['doctorguadamuz@gmail.com', 'gabrielguadamuzriver@gmail.com'];
+
+      let emailSent = false;
+      let emailError: string | null = null;
+      let usedSender = '';
+
+      for (const senderUser of possibleUsers) {
+        if (emailSent) break;
         try {
+          console.log(`Intentando enviar correo desde: ${senderUser}...`);
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: smtpUser,
+              user: senderUser,
               pass: smtpPass,
             },
           });
 
           const mailOptions = {
-            from: process.env.SMTP_FROM || `"Prana Neumología Web" <${smtpUser}>`,
-            to: recipientEmail,
+            from: `"Prana Neumología Web" <${senderUser}>`,
+            to: recipients,
             replyTo: email || recipientEmail,
             subject: `🩺 Nueva Solicitud de Cita - ${fullName || 'Paciente'} (${hospital})`,
             text: `
@@ -96,10 +105,12 @@ Enviado desde el sistema web de Prana Neumología
 
           const info = await transporter.sendMail(mailOptions);
           emailSent = true;
-          console.log(`Email enviado con éxito a ${recipientEmail}:`, info.response);
+          usedSender = senderUser;
+          emailError = null;
+          console.log(`Email enviado con éxito usando ${senderUser} a ${recipients.join(', ')}:`, info.response);
         } catch (err: any) {
-          console.error('Error al enviar email por SMTP:', err);
-          emailError = err.message || 'Error en servidor SMTP';
+          console.error(`Error enviando correo con ${senderUser}:`, err?.message || err);
+          emailError = err?.message || 'Error en autenticación o envío SMTP';
         }
       }
 
