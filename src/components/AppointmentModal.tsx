@@ -118,14 +118,9 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
             </p>
             
             {serverEmailSent ? (
-              <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl p-3.5 text-xs text-center max-w-md mx-auto space-y-1">
-                <div className="flex items-center justify-center gap-2 font-bold text-emerald-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Correo enviado exitosamente a doctorguadamuz@gmail.com</span>
-                </div>
-                <p className="text-[11px] text-emerald-600 font-normal">
-                  (Si no lo ves en tu bandeja de entrada, revisa la carpeta de <strong>Spam / Correo no deseado</strong> o <strong>Promociones</strong>).
-                </p>
+              <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl p-3 text-xs text-center max-w-md mx-auto flex items-center justify-center gap-2 font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Correo enviado exitosamente a doctorguadamuz@gmail.com</span>
               </div>
             ) : (
               <div className="bg-amber-50 text-amber-900 border border-amber-200 rounded-xl p-3.5 text-xs text-left max-w-md mx-auto space-y-2">
