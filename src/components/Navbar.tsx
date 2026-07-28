@@ -44,6 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, setLang, onOpenBooking }) 
     { path: '/', label: t.home },
     { path: '/sobre-nosotros', label: t.about },
     { path: '/servicios', label: t.services },
+    { path: '/neurofeedback-z-score', label: t.neurofeedback || 'Neurofeedback Z-Score' },
     { path: '/videos-educativos', label: t.videos },
     { path: '/aseguradoras', label: t.insurances },
     { path: '/contacto', label: t.contact },

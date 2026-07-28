@@ -21,6 +21,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
     { path: '/', label: navT.home },
     { path: '/sobre-nosotros', label: navT.about },
     { path: '/servicios', label: navT.services },
+    { path: '/neurofeedback-z-score', label: navT.neurofeedback || 'Neurofeedback Z-Score' },
     { path: '/videos-educativos', label: navT.videos },
     { path: '/aseguradoras', label: navT.insurances },
     { path: '/contacto', label: navT.contact },

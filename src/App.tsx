@@ -10,6 +10,7 @@ import { AppointmentModal } from './components/AppointmentModal';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ServicesPage } from './pages/ServicesPage';
+import { NeurofeedbackPage } from './pages/NeurofeedbackPage';
 import { VideosPage } from './pages/VideosPage';
 import { InsurancesPage } from './pages/InsurancesPage';
 import { ContactPage } from './pages/ContactPage';
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="/" element={<HomePage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/sobre-nosotros" element={<AboutPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/servicios" element={<ServicesPage lang={lang} onOpenBooking={handleOpenBooking} />} />
+            <Route path="/neurofeedback-z-score" element={<NeurofeedbackPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/videos-educativos" element={<VideosPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/aseguradoras" element={<InsurancesPage lang={lang} onOpenBooking={handleOpenBooking} />} />
             <Route path="/contacto" element={<ContactPage lang={lang} onOpenBooking={handleOpenBooking} />} />
