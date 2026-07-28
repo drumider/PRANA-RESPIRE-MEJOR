@@ -62,17 +62,25 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      const data = await response.json();
-      if (data.emailSent) {
-        setServerEmailSent(true);
+
+      const contentType = response.headers.get('content-type') || '';
+
+      if (response.ok && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (data.emailSent) {
+          setServerEmailSent(true);
+        } else {
+          setServerEmailSent(false);
+          setServerEmailError(data.emailError || null);
+        }
       } else {
         setServerEmailSent(false);
-        setServerEmailError(data.emailError || null);
+        setServerEmailError(null);
       }
     } catch (err: any) {
       console.error('Error enviando cita al servidor:', err);
       setServerEmailSent(false);
-      setServerEmailError(err?.message || 'Error de red');
+      setServerEmailError(null);
     } finally {
       setIsSending(false);
       setIsSubmitted(true);
