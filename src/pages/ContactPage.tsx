@@ -228,17 +228,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ lang, onOpenBooking })
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-extrabold text-slate-900 bg-white hover:bg-emerald-50 transition-all shadow-md text-xs sm:text-sm"
             >
               <MessageCircle className="w-4 h-4 text-emerald-600 fill-emerald-600" />
-              <span>La Católica: 8946-8277</span>
-            </a>
-
-            <a
-              href={isEs ? LOCATIONS.metropolitano.whatsappLink : LOCATIONS.metropolitano.whatsappLinkEn}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-extrabold text-slate-900 bg-white hover:bg-emerald-50 transition-all shadow-md text-xs sm:text-sm"
-            >
-              <MessageCircle className="w-4 h-4 text-emerald-600 fill-emerald-600" />
-              <span>Metropolitano: 6448-8664</span>
+              <span>WhatsApp: 8828-2904</span>
             </a>
 
             <button

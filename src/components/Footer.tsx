@@ -184,7 +184,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                     <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                     <div className="text-xs">
                       <span className="block text-emerald-200 font-bold text-[11px]">Sede La Católica</span>
-                      <span className="text-[11px] text-emerald-300 font-mono">(506) 8946-8277</span>
+                      <span className="text-[11px] text-emerald-300 font-mono">{LOCATIONS.catolica.whatsapp}</span>
                     </div>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 text-emerald-400 group-hover:translate-x-1 transition-transform" />
@@ -200,7 +200,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                     <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                     <div className="text-xs">
                       <span className="block text-emerald-200 font-bold text-[11px]">Sede Metropolitano</span>
-                      <span className="text-[11px] text-emerald-300 font-mono">(506) 6448-8664</span>
+                      <span className="text-[11px] text-emerald-300 font-mono">{LOCATIONS.metropolitano.whatsapp}</span>
                     </div>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 text-emerald-400 group-hover:translate-x-1 transition-transform" />
